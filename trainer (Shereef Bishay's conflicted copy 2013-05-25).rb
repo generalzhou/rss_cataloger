@@ -1,15 +1,17 @@
 class Trainer
+  attr_accessor :stop_words
   attr_accessor :training_set
-  attr_accessor :category
 
-  def initialize(category)
+  def initialize(category, text, stop_words)
     @category = category
+    @text = text
+    @stop_words = stop_words
     @training_set = {}
   end
 
-  def train(text, stop_words)
-    words = text_to_array(text)
-    scored_words = score_words(words, stop_words)
+  def train
+    words = text_to_array(@text)
+    scored_words = score_words(words)
     @training_set = ratiolize(scored_words)
     return self
   end
@@ -21,7 +23,7 @@ class Trainer
     scored_words
   end
 
-  def score_words(word_array, stop_words)
+  def score_words(word_array)
     scored_words = Hash.new(0)
     word_array.each do |word| 
       scored_words[word] += 1 unless stop_words.include?(word)
@@ -40,5 +42,4 @@ class Trainer
       end
     end
   end
-
 end

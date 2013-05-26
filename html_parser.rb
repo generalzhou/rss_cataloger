@@ -1,5 +1,3 @@
-
-
 class HtmlParser
   attr_accessor :url, :selector
 
